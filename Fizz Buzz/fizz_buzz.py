@@ -1,3 +1,7 @@
+"""
+https://leetcode.com/problems/fizz-buzz/submissions/
+"""
+
 class Solution:
     def fizzBuzz(self, n: int) -> List[str]:
         final_list = list()
