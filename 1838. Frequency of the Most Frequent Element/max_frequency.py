@@ -2,7 +2,6 @@
 https://leetcode.com/problems/frequency-of-the-most-frequent-element/submissions/
 '''
 
-
 class Solution:
     def maxFrequency(self, nums, k: int) -> int:
         nums.sort()
