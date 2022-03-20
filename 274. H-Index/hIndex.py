@@ -53,4 +53,4 @@ class Solution:
 
 
 sol = Solution()
-print(sol.hIndex([0, 1]))
+print(sol.hIndex([1, 2, 3, 4, 5, 6]))
