@@ -11,7 +11,7 @@ class Solution:
         while len(ppl) > 1:
             game_round +=1
             cur_index = (cur_index + k - 1)%len(ppl)
-            print(ppl.pop(cur_index))
+            ppl.pop(cur_index)
 
         return ppl.pop()
 
