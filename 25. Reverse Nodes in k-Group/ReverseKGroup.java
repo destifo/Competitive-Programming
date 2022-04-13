@@ -1,5 +1,6 @@
 public class ReverseKGroup {
 
+    // did 90% of this without help. 
     public class ListNode {
         int val;
         ListNode next;
@@ -13,14 +14,10 @@ public class ReverseKGroup {
         if (head == null)
             return null;
         int totReverse = size(head);
-        // int reverseNum = 1;
-        // ListNode tail;
-        // ListNode curr = head;
-        ListNode orgHead = head;
 
-        head = reverseList(head, k, totReverse);
+        ListNode ans = reverseList(head, k, totReverse);
 
-        return head;
+        return ans;
     }
 
     private int size(ListNode head){
@@ -35,29 +32,39 @@ public class ReverseKGroup {
     }
 
     private ListNode reverseList(ListNode head, int k, int reverseNum) {
+        
         if (reverseNum < k)
             return head;
+        
+        if (k == 1)
+            return head;
+        
+        reverseNum -=k;
 
 
         ListNode prev = head;
         ListNode curr = prev.next;
-        if (curr == null)
-            return head;
         ListNode next = curr.next;
-        int currK = 0;
+        int currK = 1;
 
-        while (currK < k && curr != null) {
-            next = curr.next;
+        while (currK < k) {
             currK++;
             curr.next = prev;
             prev = curr;
             curr = next;
+            if (curr != null)
+                next = curr.next;
         }
 
+        
 
-        if (reverseNum == k || next == null)
+        head.next = null;
+        if (curr == null){
             return prev;
-        ListNode ans = reverseList(next, k, reverseNum - k);
+        }
+        
+        
+        ListNode ans = reverseList(curr, k, reverseNum);
         head.next = ans;
         return prev;
     }
