@@ -28,9 +28,22 @@ public class MiddleNode {
         int mid = listLength/2 + 1;
         ListNode result = head;
         for (int i = 0; i < mid; i++)
-            result = resultext;
+            result = result.next;
             
         return result;
+    }
+
+    // using two pointers
+    public static ListNode middleNode2(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
     }
     
 }
