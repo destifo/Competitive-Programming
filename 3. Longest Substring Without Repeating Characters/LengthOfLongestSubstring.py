@@ -2,6 +2,7 @@
 https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/
 '''
 class Solution:
+    # typical sliding window
     def lengthOfLongestSubstring(self, s: str):
         visitedChar = set()
         visitedChar.add(s[0])
