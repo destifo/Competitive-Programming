@@ -60,8 +60,7 @@ public class MergeTwoLists {
 
             return list2;
         }
-        
-        
+           
         
     }
 }
