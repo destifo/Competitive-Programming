@@ -3,7 +3,7 @@ https://leetcode.com/problems/house-robber/
 '''
 
 class Solution:
-    # done it 5 mins
+    # did it 5 mins
     def rob(self, nums):
         n = len(nums)
         dp = [0] * n
