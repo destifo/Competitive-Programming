@@ -14,9 +14,9 @@ class KthLargest:
 
     def add(self, val: int):
         if len(self.minHeap) < self.k or val > self.minHeap[0]:
-            if len(self.minHeap) >= self.k:
-                heapq.heappop(self.minHeap)
             heapq.heappush(self.minHeap, val)
+            if len(self.minHeap) > self.k:
+                heapq.heappop(self.minHeap)
 
         return self.minHeap[0]
         
