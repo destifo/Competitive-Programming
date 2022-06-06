@@ -53,7 +53,7 @@ class Solution:
         return None
 
 
-    def getIntersectionNode2(self, headA: ListNode, headB: ListNode):
+    def getIntersectionNode3(self, headA: ListNode, headB: ListNode):
         # an O(1) space solution
         a_len, b_len = 0, 0
         curr = headA
@@ -81,3 +81,15 @@ class Solution:
             headB = headB.next
 
         return headA
+
+    
+    def getIntersectionNode4(self, headA: ListNode, headB: ListNode):
+        # an O(m + n) time and O(1) space solution
+        # the intution is that the shorter one will rollback to head of the longer
+        # linked list and the larger one the vice versa 
+        currA, currB = headA, headB
+        while currA != currB:
+            currA = currA.next if currA else headB
+            currB = currB.next if currB else headA
+            
+        return currA
