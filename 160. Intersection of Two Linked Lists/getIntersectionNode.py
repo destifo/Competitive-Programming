@@ -36,3 +36,47 @@ class Solution:
 
         return ans
             
+    
+    def getIntersectionNode2(self, headA: ListNode, headB: ListNode):
+        nodesInA = set()
+        curr = headA
+        while curr:
+            nodesInA.add(curr)
+            curr = curr.next
+
+        curr = headB
+        while curr:
+            if curr in nodesInA:
+                return curr
+            curr = curr.next
+
+        return None
+
+
+    def getIntersectionNode2(self, headA: ListNode, headB: ListNode):
+        a_len, b_len = 0, 0
+        curr = headA
+        while curr:
+            a_len +=1
+            curr = curr.next
+
+        curr = headB
+        while curr:
+            b_len +=1
+            curr = curr.next
+
+        isALarger = a_len >= b_len
+        iter_len = abs(a_len - b_len)
+
+        if isALarger:
+            for i in range(iter_len):
+                headA = headA.next
+        else:
+            for i in range(iter_len):
+                headB = headB.next
+
+        while headA != headB:
+            headA = headA.next
+            headB = headB.next
+
+        return headA
