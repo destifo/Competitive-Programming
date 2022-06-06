@@ -54,6 +54,7 @@ class Solution:
 
 
     def getIntersectionNode2(self, headA: ListNode, headB: ListNode):
+        # an O(1) space solution
         a_len, b_len = 0, 0
         curr = headA
         while curr:
