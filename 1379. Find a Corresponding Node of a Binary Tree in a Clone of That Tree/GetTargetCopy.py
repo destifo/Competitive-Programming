@@ -10,7 +10,6 @@ https://leetcode.com/problems/find-a-corresponding-node-of-a-binary-tree-in-a-cl
 #         self.right = None
 
 from collections import deque
-from turtle import right
 
 
 class Solution:
