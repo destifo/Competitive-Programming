@@ -6,18 +6,17 @@ class Solution:
     # using recursion
     def search(self, nums, target: int):
         n = len(nums)
-        mid = n//2
-        def binarySearch(initial, index, final):
-            if final - initial <=1 and (nums[final] != target and nums[initial] != target):
-                return -1
-            if nums[index] == target:
-                return index
-            elif nums[index] > target:
-                return binarySearch(initial, (index - initial)//2 + initial, index)
+        
+        def binary_search(start, end):
+            mid = (start + end) // 2
+            if nums[mid] == target: return mid
+            if start == mid:    return end if target == nums[end] else -1
+            if nums[mid] > target:
+                return binary_search(start, mid)
             else:
-                return binarySearch(index, (final - initial)//2 + index, final)
-                
-        return binarySearch(0, mid, n - 1)
+                return binary_search(mid, end)
+            
+        return binary_search(0, n-1)
 
     
     # using a loop
