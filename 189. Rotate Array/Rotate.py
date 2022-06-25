@@ -37,3 +37,17 @@ class Solution:
             nums[left], nums[right] = nums[right], nums[left]
             l +=1
             r -=1
+
+
+    def rotate3(self, nums, k):
+        n = len(nums)
+        k = k % n
+        if k == 0:  return nums
+        rot_index = n - k
+        
+        def reverse(start, end):
+            nums[start:end] = reversed(nums[start:end])
+            
+        reverse(0, rot_index)
+        reverse(rot_index, n)
+        nums.reverse()
