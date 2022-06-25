@@ -16,5 +16,4 @@ class Solution:
                 nums[l+1] = nums[r]
                 l +=1
         
-        for i in range(r-l-1):
-            nums.pop()
+        return l+1
