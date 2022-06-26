@@ -37,6 +37,27 @@ class Solution:
 
         return [l + 1, r + 1]
 
+    
+    # just different code when I did it on another day
+    def twoSum3(self, nums: list[int], target: int) -> list[int]:
+        n = len(nums)
+        l, r = 0, n-1
+        
+        val = nums[l] + nums[r]
+        while l < r:
+            if val == target:
+                return [l+1, r+1] # 1 indexed answer
+            elif val > target:
+                val -=nums[r]
+                r -=1
+                val +=nums[r]
+            else:
+                val -=nums[l]
+                l +=1
+                val +=nums[l]
+                
+        return [-1, -1]
+
 
 sol = Solution()
 print(sol.twoSum2([2,7,11,15],9))
