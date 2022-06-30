@@ -22,11 +22,11 @@ class Solution:
     def pop(self, arr:list):
         if not arr: return
         temp = arr.pop()
-        min = arr[0]
+        max_val = arr[0]
         arr[0] = temp
         self.heapify_down(arr)
 
-        return min
+        return max_val
 
 
     def heapify_down(self, arr):
