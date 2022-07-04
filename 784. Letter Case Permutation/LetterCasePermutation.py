@@ -7,6 +7,7 @@ class Solution:
     # honestly, this backtracking question is where I unnderstood backtracking, hopefully
     def letterCasePermutation(self, s: str) -> list[str]:
         result = []
+        result.append(s)
         alpha_indices = []
         for index,ch in enumerate(s):
             if ch.isalpha():
