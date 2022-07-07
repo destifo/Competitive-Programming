@@ -36,3 +36,19 @@ class Solution:
             return memo[rem - 1] + memo[rem - 2]
 
         return findNumOfStairs(n, 0)
+
+    
+    # iterative approach, the sequence is the same as the fibonacci numbers from my observation
+    def climbStairs3(self, n: int):
+        if n < 3:
+            return n
+        
+        a_1 = 1
+        a_2 = 2
+        curr = a_1 + a_2
+        for i in range(3, n+1):
+            curr = a_1 + a_2
+            a_1 = a_2
+            a_2 = curr
+            
+        return curr
