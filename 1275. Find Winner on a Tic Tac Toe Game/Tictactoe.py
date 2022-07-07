@@ -4,7 +4,7 @@ https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/
 
 
 class Solution:
-    def tictactoe(self, moves: List[List[int]]) -> str:
+    def tictactoe(self, moves: list[list[int]]) -> str:
         grid = [[ (i + 3*j) for i in range(3) ] for j in range(3)]
         
         def check_row_win():
@@ -30,7 +30,6 @@ class Solution:
             
             return "0"
         
-        game_over = False
         for index,move in enumerate(moves):
             ch = 'A' if index % 2 == 0 else 'B'
             x, y = move
