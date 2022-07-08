@@ -30,6 +30,8 @@ class Solution:
 
     
     # optimal solution 
+    # O(logn + m) time complexity, cause we are sorting the keys(distinct nums), m(original nums array length) for building the dictionary
+    # O(m + n) for the map and the dp array
     def deleteAndEarn2(self, nums: list[int]) -> int:
         nums_count = Counter(nums)
         nums = sorted(nums_count.keys())
