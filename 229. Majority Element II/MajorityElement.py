@@ -21,3 +21,25 @@ class Solution:
                 nums_count[num] = 'added'
                 
         return result
+
+
+    # O(nlogn) time
+    # O(1) space, as per the leetcode follow up
+    def majorityElement2(self, nums: list[int]) -> list[int]:
+        n = len(nums)
+        result = []
+        least_len = (n // 3) + 1
+        l, r = 0, least_len-1
+        
+        nums.sort()
+        
+        while r < n:
+            if nums[l] == nums[r]:
+                if not result or result[-1] != nums[l]:
+                    result.append(nums[l])
+                if len(result) > 2:
+                    return result
+            l +=1
+            r +=1
+            
+        return result
