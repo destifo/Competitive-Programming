@@ -9,6 +9,8 @@ class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
         n = len(needle)
         m = len(haystack)
+
+        if n == 0:  return 0
         
         l, r = 0, n
         while r <= m:
