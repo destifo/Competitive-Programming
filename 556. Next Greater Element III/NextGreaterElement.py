@@ -4,6 +4,8 @@ https://leetcode.com/problems/next-greater-element-iii/
 
 
 class Solution:
+    # O(1) time
+    # O(1) space
     def nextGreaterElement(self, n: int) -> int:
         str_int = str(n)
         digits = []
