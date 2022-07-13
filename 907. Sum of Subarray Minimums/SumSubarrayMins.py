@@ -35,3 +35,7 @@ class Solution:
             ans += (curr_i - prev_i) * (i - curr_i) * (arr[curr_i])
                 
         return ans % (10**9 + 7)
+
+
+sol = Solution()
+print(sol.sumSubarrayMins([3,1,2,4]))
