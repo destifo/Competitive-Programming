@@ -6,6 +6,7 @@ https://leetcode.com/problems/consecutive-characters/
 class Solution:
     # O(n) time,
     # O(1) space,
+    # approach: two pointer, sliding window
     def maxPower(self, s: str) -> int:
         n = len(s)
         power = 0
