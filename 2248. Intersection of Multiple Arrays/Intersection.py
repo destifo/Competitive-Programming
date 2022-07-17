@@ -20,3 +20,20 @@ class Solution:
                 ans.append(i)
                 
         return ans
+
+
+    def intersection2(self, nums: list[list[int]]) -> list[int]:
+        count = {}
+        n = len(nums)
+        ans = []
+        
+        for lst in nums:
+            for num in lst:
+                count[num] = count.get(num, 0) + 1
+        
+        for key, value in count.items():
+            if value == n:
+                ans.append(key)
+                
+        ans.sort()
+        return ans
