@@ -17,7 +17,7 @@ class TreeNode:
 
 class Solution:
     # O(n) time,
-    # O(n + m) space,
+    # O(n) space,
     # Approach: DFS, hashmap
     def findFrequentTreeSum(self, root: Optional[TreeNode]) -> list[int]:
         sum_count = {}
