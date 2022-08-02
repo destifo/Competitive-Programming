@@ -8,7 +8,7 @@ from typing import List
 
 class Solution:
     # O(rowIndex) time,
-    # O(rowIndex ^ 2) space, 
+    # O(rowIndex ^ 2) space, specifically rowIndex/2 * (rowIndex + 1), 
     # Approach: Top down dp,
     def getRow(self, rowIndex: int) -> List[int]:
         rows = [[1 for i in range(j+1)] for j in range(rowIndex+1)]
