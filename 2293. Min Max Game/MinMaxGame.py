@@ -3,6 +3,7 @@ https://leetcode.com/problems/min-max-game/
 '''
 
 
+import math
 from typing import List
 
 
@@ -26,4 +27,30 @@ class Solution:
                     
             nums = new_lst
             
+        return nums[0]
+
+
+    # O(logn) time,
+    # O(1) space,
+    # Approach: iterative, simulation
+    def minMaxGame2(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 1:
+            return nums[0]
+        
+        m = int(math.log(n, 2))
+        
+        interval = 1
+        for j in range(m):
+            count = 0
+            for i in range(0, n, 2 * interval):
+                if count % 2 == 0:
+                    nums[i] = min(nums[i], nums[i + interval])
+                else:
+                    nums[i] = max(nums[i], nums[i + interval])
+                count +=1
+            interval *=2
+            # n //=2
+        
+              
         return nums[0]
