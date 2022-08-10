@@ -8,7 +8,7 @@ from typing import List
 
 class Solution:
     # O(m*n) time, 
-    # O(m*n) space, when storing the neighbours
+    # O(1) space, when storing the neighbours
     # Approach: DFS, reverse thinking
     def solve(self, board: List[List[str]]) -> None:
         n = len(board)
