@@ -1,7 +1,7 @@
 
 # O(n) time,
 # O(1) space,
-# Approach: 
+# Approach: two pointers, greedy, sorting
 
 from typing import List
 
