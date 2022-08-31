@@ -1,0 +1,18 @@
+# O(len(bills)) time,
+# O(1) space,
+# Approach: greedy, 
+
+
+n = int(input())
+bills = [100, 20, 10, 5, 1]
+ans = 0
+i = 0
+
+while n > 0:
+    while bills[i] > n:
+        i +=1
+    
+    ans += (n//bills[i])
+    n %= bills[i]
+    
+print(ans)
