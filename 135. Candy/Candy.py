@@ -1,3 +1,11 @@
+'''
+https://leetcode.com/problems/candy/
+'''
+
+
+from typing import List
+
+
 class Solution:
     # O(nlogn) time,
     # O(n) space,
