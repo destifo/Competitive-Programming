@@ -3,7 +3,7 @@ https://leetcode.com/problems/binary-tree-inorder-traversal/
 '''
 
 
-from typing import Optional
+from typing import *
 
 
 # Definition for a binary tree node.
