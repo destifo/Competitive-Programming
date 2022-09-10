@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     # naive approach
     def minCostClimbingStairs(self, cost):
@@ -44,3 +47,21 @@ class Solution:
             i -=1
 
         return min(cost[0], cost[1])
+
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: dp, tabulation
+    def minCostClimbingStair4(self, cost: List[int]) -> int:
+        n = len(cost)
+        if n == 2:
+            return min(cost[0], cost[1])
+        table = [0 for i in range(n)]
+        
+        table[0] = cost[0]
+        table[1] = cost[1]
+        
+        for i in range(2, n-1):
+            table[i] = min(table[i-1], table[i-2]) + cost [i]
+        table[n-1] = min(table[n-2], (table[n-3]+cost[n-1]))
+        return table[n-1]
