@@ -3,6 +3,7 @@ https://leetcode.com/problems/find-original-array-from-doubled-array/
 """
 
 from collections import Counter
+from typing import List
 
 
 class Solution:
@@ -239,6 +240,37 @@ class Solution:
         return []
 
 
+    # O(nlogn) time,
+    # O(n) space,
+    # Approach: hashtable, sorting
+    def findOriginalArray4(self, changed: List[int]) -> List[int]:
+        count = Counter(changed)
+        original = []
+        
+        changed.sort()
+        
+        for num in changed:
+            if num == 0:
+                if len(original) > 0:
+                    continue
+                elif count[num] % 2 != 0:
+                    return []
+                else:
+                    original.extend([0 for i in range(count[0]//2)])
+                    continue
+                
+            
+            if count[num] > 0 and count.get(num*2, 0) > 0:
+                count[num] -=1
+                count[num*2] -=1
+                original.append(num)
+            elif count[num] <= 0:
+                continue
+            else:
+                return []
+            
+        return original
+
 
 sol = Solution()
-#print(sol.findOriginalArray3())
+print(sol.findOriginalArray4([2,1,2,4,2,4]))
