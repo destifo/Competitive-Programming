@@ -7,6 +7,9 @@ from typing import List
 
 
 class Solution:
+    # O(n) time,
+    # O(1) space,
+    # Approach: monotonic stack, array
     def trap(self, height: List[int]) -> int:
         n = len(height)
         stack = []
