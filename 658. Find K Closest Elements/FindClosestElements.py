@@ -52,7 +52,7 @@ class Solution:
         return ans
 
     
-    # O(nlogn) time,
+    # O(n + klogk) time,
     # O(n) space,
     # Approach: heap, sorting
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
