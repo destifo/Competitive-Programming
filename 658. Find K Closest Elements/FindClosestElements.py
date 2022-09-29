@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 from typing import List
 
 
@@ -48,4 +49,23 @@ class Solution:
                 ans.appendleft(arr[l])
                 l -=1
                 
+        return ans
+
+    
+    # O(nlogn) time,
+    # O(n) space,
+    # Approach: heap, sorting
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        ans = []
+        n = len(arr)
+        
+        min_heap = []
+        for i in range(n):
+            heapq.heappush(min_heap, (abs(arr[i]-x), arr[i]))
+            
+        while k > 0:
+            ans.append(heapq.heappop(min_heap)[1])
+            k -=1
+            
+        ans.sort()
         return ans
