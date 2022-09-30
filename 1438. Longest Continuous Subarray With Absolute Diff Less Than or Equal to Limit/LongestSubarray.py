@@ -3,6 +3,7 @@ https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-les
 """
 
 import collections
+from typing import List
 
 
 class Solution:
@@ -57,6 +58,44 @@ class Solution:
                     minQueue.popleft()
                 i += 1
         return maxLen
+
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: monotonic queue, deque
+    def longestSubarray3(self, nums: List[int], limit: int) -> int:
+        n = len(nums)
+        curr_max = collections.deque()
+        curr_max.append(nums[0])
+        curr_min = collections.deque()
+        curr_min.append(nums[0])
+        max_len = 1
+        
+        l, r = 0, 1
+        while r < n:
+            num = nums[r]
+            while curr_max and num > curr_max[-1]:
+                curr_max.pop()
+                
+            while curr_min and num < curr_min[-1]:
+                curr_min.pop()
+                
+            curr_min.append(num)
+            curr_max.append(num)
+            
+            max_len = max(max_len, r-l)
+            while abs(curr_max[0] - curr_min[0]) > limit:
+                if nums[l] == curr_max[0]:
+                    curr_max.popleft()
+                if nums[l] == curr_min[0]:
+                    curr_min.popleft()
+                    
+                l +=1
+                
+            r +=1
+        
+        max_len = max_len = max(max_len, r-l)
+        return max_len
 
 
 sol = Solution()
