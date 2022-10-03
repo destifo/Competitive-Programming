@@ -2,7 +2,13 @@
 https://leetcode.com/problems/frequency-of-the-most-frequent-element/submissions/
 '''
 
+from typing import List
+
+
 class Solution:
+    # O(nlogn) time,
+    # O(1) space,
+    # Approach: two pointers, sorting
     def maxFrequency(self, nums, k: int) -> int:
         nums.sort()
         left_end, right_end = 0, 0
@@ -19,6 +25,33 @@ class Solution:
             right_end += 1
 
         return max_freq
+
+    
+    # O(nlogn) time,
+    # O(n) space,
+    # Approach: two pointers, sorting, prefix sum
+    def maxFrequency(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        nums.sort()
+        
+        prefix_sum = [0]
+        tot = 0
+        for i in range(n):
+            tot += nums[i]
+            prefix_sum.append(tot)
+            
+        l, r = 0, 0
+        ans = 0
+        
+        while r < n:
+            
+            while (r-l+1) * nums[r] > prefix_sum[r+1] - prefix_sum[l]+k:
+                l +=1
+                
+            ans = max(ans, r-l+1)
+            r +=1
+            
+        return ans
 
 sol = Solution()
 print(sol.maxFrequency([3,9,6], 2))
