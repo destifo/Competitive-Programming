@@ -35,3 +35,26 @@ class Solution:
             return dfs(root.left, length+root.val) or dfs(root.right, length+root.val)
         
         return dfs(root, 0)
+    
+
+    # O(n) time, n --> num of nodes
+    # O(h) space, h --> height
+    # Approach: dfs, recursion
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        
+        
+        if root is None:    return False
+        
+        def dfs(root: Optional[TreeNode], tot: int) -> bool:
+        
+            left, right = root.left, root.right
+            if left is None and right is None:
+                if tot == targetSum: return True
+                return False
+
+            left_ans = False if left is None else dfs(left, tot+left.val)
+            right_ans = False if right is None else dfs(right, tot+right.val)
+
+            return left_ans or right_ans
+        
+        return dfs(root, root.val)
