@@ -63,3 +63,28 @@ class Solution:
             return False
         
         return checkRange(root, float('-inf'), float('inf'))
+
+    
+
+    # O(n) time,
+    # O(1) space,
+    # Approach: dfs, recursion
+    def isValidBST3(self, root: Optional[TreeNode]) -> bool:       
+        
+        def validate(curr: TreeNode, lower_bound: int, upper_bound: int) -> bool:
+            
+            if curr.val >= upper_bound or curr.val <= lower_bound:
+                return False
+            
+            left_validation, right_validation = True, True
+            left, right = curr.left, curr.right
+            
+            if left:
+                left_validation = validate(left, lower_bound, curr.val)
+            
+            if right:
+                right_validation = validate(right, curr.val, upper_bound)
+                
+            return left_validation and right_validation
+        
+        return validate(root, float('-inf'), float('inf'))
