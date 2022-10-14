@@ -39,7 +39,7 @@ class Solution:
     # O(numCourse) time, 
     # O(numCourse) space,
     # Approach: topological order, bfs
-    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+    def findOrder2(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         graph = defaultdict(list)
         incomings = [0 for _ in range(numCourses)]
         
