@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, deque
 from typing import List
 
 
@@ -34,3 +34,33 @@ class Solution:
             if hasCycle(course):    return []
             
         return topological_order
+
+
+    # O(numCourse) time, 
+    # O(numCourse) space,
+    # Approach: topological order, bfs
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        graph = defaultdict(list)
+        incomings = [0 for _ in range(numCourses)]
+        
+        for course, required_course in prerequisites:
+            graph[required_course].append(course)
+            incomings[course] +=1
+        
+        topological_order = []
+        qu = deque()
+        for course in range(numCourses):
+            if incomings[course] == 0:  qu.append(course)
+                
+        while qu:
+            qu_len = len(qu)
+            for _ in range(qu_len):
+                course = qu.popleft()
+                topological_order.append(course)
+                
+                for required in graph[course]:
+                    incomings[required] -=1
+                    if incomings[required] == 0:
+                        qu.append(required)
+                        
+        return [] if len(topological_order) != numCourses else topological_order
