@@ -3,6 +3,9 @@ https://leetcode.com/problems/sum-of-subarray-minimums/
 '''
 
 
+from typing import List
+
+
 class Solution:
     # O(n) time,
     # O(n) space
@@ -35,6 +38,36 @@ class Solution:
             ans += (curr_i - prev_i) * (i - curr_i) * (arr[curr_i])
                 
         return ans % (10**9 + 7)
+
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: monotonic stack, arra
+    def sumSubarrayMins2(self, arr: List[int]) -> int:
+        
+        def findSubarrayMinSum(nums: List[int]) -> int:
+            tot = 0
+            stack = [] # monotonic(non decreasing) stack
+            
+            for index, num in enumerate(nums):
+                while stack and num <= nums[stack[-1]]:
+                    popped_index = stack.pop()
+                    left_offset = stack[-1] if stack else -1
+                    right_offset = index
+                    num_subarrays = (popped_index-left_offset) * (right_offset-popped_index)
+                    tot += nums[popped_index] * num_subarrays
+                stack.append(index)
+            
+            right_offset = len(nums)
+            while stack:
+                popped_index = stack.pop()
+                left_offset = stack[-1] if stack else -1
+                num_subarrays = (popped_index-left_offset) * (right_offset-popped_index)
+                tot += nums[popped_index] * num_subarrays
+                
+            return tot
+        
+        return findSubarrayMinSum(arr) % (10**9 + 7)
 
 
 sol = Solution()
