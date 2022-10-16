@@ -121,5 +121,58 @@ class Solution:
         return ans
 
 
+    # O(n) time,
+    # O(n) space,
+    # Approach: monotonic stack, array, refactored
+    def subArrayRanges4(self, nums: List[int]) -> int:
+                
+        def findSubarrayMinSum(nums: List[int]) -> int:
+            tot = 0
+            stack = [] # monotonic(non decreasing) stack
+            
+            for index, num in enumerate(nums):
+                while stack and num <= nums[stack[-1]]:
+                    popped_index = stack.pop()
+                    left_offset = stack[-1] if stack else -1
+                    right_offset = index
+                    num_subarrays = (popped_index-left_offset) * (right_offset-popped_index)
+                    tot += nums[popped_index] * num_subarrays
+                stack.append(index)
+            
+            right_offset = len(nums)
+            while stack:
+                popped_index = stack.pop()
+                left_offset = stack[-1] if stack else -1
+                num_subarrays = (popped_index-left_offset) * (right_offset-popped_index)
+                tot += nums[popped_index] * num_subarrays
+                
+            return tot
+        
+        
+        def findSubarrayMaxSum(nums: List[int]) -> int:
+            tot = 0
+            stack = [] # monotonic(non increasing) stack
+            
+            for index, num in enumerate(nums):
+                while stack and num >= nums[stack[-1]]:
+                    popped_index = stack.pop()
+                    left_offset = stack[-1] if stack else -1
+                    right_offset = index
+                    num_subarrays = (popped_index-left_offset) * (right_offset-popped_index)
+                    tot += nums[popped_index] * num_subarrays
+                stack.append(index)
+                
+            right_offset = len(nums)
+            while stack:
+                popped_index = stack.pop()
+                left_offset = stack[-1] if stack else -1
+                num_subarrays = (popped_index-left_offset) * (right_offset-popped_index)
+                tot += nums[popped_index] * num_subarrays
+                
+            return tot
+        
+        return findSubarrayMaxSum(nums) - findSubarrayMinSum(nums)
+
+
 sol = Solution()
 print(sol.subArrayRanges2([4, -2, -3, 4, 1]))
