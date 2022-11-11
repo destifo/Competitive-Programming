@@ -3,6 +3,9 @@ https://leetcode.com/problems/letter-case-permutation/
 '''
 
 
+from typing import List
+
+
 class Solution:
     # honestly, this backtracking question is where I unnderstood backtracking, hopefully
     def letterCasePermutation(self, s: str) -> list[str]:
@@ -27,3 +30,39 @@ class Solution:
         backtrack(0, s)
 
         return result
+
+
+    def findLetterPermutations(self, index: int, word: str, curr_list: List[str], answer: List[str]) -> None:
+        
+        if index == len(word):
+            permutation = ''.join(curr_list)
+            answer.append(permutation)
+            return
+        
+        ch = word[index]
+        if ch.isdigit():
+            curr_list.append(ch)
+            self.findLetterPermutations(index+1, word, curr_list, answer)
+            curr_list.pop()
+        else:
+            # upper case
+            curr_list.append(ch.upper())
+            self.findLetterPermutations(index+1, word, curr_list, answer)
+            curr_list.pop()
+            
+            # lower case
+            curr_list.append(ch.lower())
+            self.findLetterPermutations(index+1, word, curr_list, answer)
+            curr_list.pop()
+    
+    
+    # O(2^n) time,
+    # O(2^n) space,
+    # Approach: backtracking, recursion
+    def letterCasePermutation2(self, s: str) -> List[str]:
+        
+        answer = []
+        
+        self.findLetterPermutations(0, s, [], answer)
+        
+        return answer
