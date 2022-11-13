@@ -18,3 +18,18 @@ class Solution:
             r +=1
             
         return 0
+
+
+    # O(nlogn) time,
+    # O(1) space,
+    # Approach: sorting, math, greedy
+    def largestPerimeter2(self, nums: List[int]) -> int:
+        nums.sort()
+        
+        nums_len = len(nums)
+        
+        for i in range(nums_len-1, 1, -1):
+            if nums[i] < (nums[i-1] + nums[i-2]):
+                return sum(nums[i-2:i+1])
+            
+        return 0
