@@ -1,6 +1,9 @@
 use std::collections::HashMap;
 
 impl Solution {
+    // O(n) time,
+    // O(n) space,
+    // Approach: Hashmap, 
     pub fn contains_nearby_duplicate(nums: Vec<i32>, k: i32) -> bool {
         
         let mut prev_index: HashMap<i32, i32> = HashMap::new();
@@ -20,8 +23,6 @@ impl Solution {
                 
             }
             prev_index.insert(num, i as i32);
-            
-            
             
         }
         
