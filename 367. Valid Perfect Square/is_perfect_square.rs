@@ -5,7 +5,7 @@ impl Solution {
     // Approach: binary search, math
     pub fn is_perfect_square(num: i32) -> bool {
         let mut low = 1;
-        let mut hi = (46341);
+        let mut hi = (46341); // 46,341 is the maximum root u can have for a i32 type
         
         while low <= hi {
             let mid = low + (hi-low)/2;
