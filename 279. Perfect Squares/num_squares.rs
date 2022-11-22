@@ -72,4 +72,58 @@ impl Solution {
         
         return min_squares[n as usize];
     }
+
+    
+    // Approach: bfs, 
+    pub fn num_squares(n: i32) -> i32 {
+        
+        let mut queue: VecDeque<i32> = VecDeque::new();
+        let mut visited = HashSet::new(); 
+        
+        for root in 1..n+1 {
+            let square = root*root;
+            
+            if square > n {
+                break;
+            }
+            
+            queue.push_back(n-square);
+            visited.insert(n-square);
+        }
+        
+        let mut depth = 0;
+        
+        while queue.len() > 0 {
+            
+            depth += 1;
+            let queue_len = queue.len();
+            
+            for i in 0..queue_len {
+                
+                let val = queue.pop_front().unwrap_or(0);
+                
+                if val == 0 {
+                    return depth;
+                }
+                
+                for root in 1..val+1 {
+                    let square = root*root;
+
+                    if square > val {
+                        break;
+                    }
+                    
+                    if visited.contains(&(val-square)) {
+                        continue;
+                    }
+
+                    queue.push_back(val-square);
+                    visited.insert(val-square);
+                }
+            }
+        }
+        
+        return -1;
+        
+    }
 }
