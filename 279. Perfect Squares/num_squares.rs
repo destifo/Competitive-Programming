@@ -41,4 +41,35 @@ impl Solution {
         return Solution::find_min_squares(n, &mut memo);
         
     }
+
+
+    // O(n) time,
+    // O(n) space,
+    // Approach: bottom up dp, 
+    pub fn num_squares2(n: i32) -> i32 {
+        
+        let size = (n+1) as usize;
+        let mut min_squares: Vec<i32> = vec![i32::MAX; size]; 
+        
+        min_squares[1 as usize] = 1;
+        min_squares[0 as usize] = 0;
+        
+        for i in 2..n+1 {
+            
+            for root in 1..i {
+                
+                let square = root*root;
+                
+                if square > i {
+                    break;
+                }
+                
+                min_squares[i as usize] = cmp::min(min_squares[i as usize], 1+min_squares[(i-square) as usize]);
+                
+            }
+            
+        }
+        
+        return min_squares[n as usize];
+    }
 }
