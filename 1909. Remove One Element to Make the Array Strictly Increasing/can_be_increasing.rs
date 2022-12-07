@@ -77,4 +77,52 @@ impl Solution {
         
         return answer;
     }
+
+
+    // O(n) time,
+    // O(n) space,
+    // Approach: array, one side prefix sum, 
+    pub fn can_be_increasing3(nums: Vec<i32>) -> bool {
+        
+        let mut right_sorted = vec![false;nums.len()];
+        
+        right_sorted[nums.len()-1] = true;
+        for i in (0..nums.len()-1).rev() {
+            
+            if nums[i] >= nums[i+1] {
+                break;
+            }
+            
+            right_sorted[i] = true;
+        }
+        
+        let mut answer = false;
+        let mut left_sorted = true;
+        
+        for i in 0..nums.len() {
+            
+            if i > 1 && nums[i-2] >= nums[i-1] {
+                left_sorted = false;
+            }
+            
+            if answer == true || !left_sorted {
+                break;
+            }
+            
+            let is_right_sorted = if (i == nums.len()-1) {true} else {right_sorted[i+1]};
+   
+            let mut is_sorted = is_right_sorted;
+            if i == 0 || i == nums.len()-1 {
+                answer = is_sorted;
+                continue;
+            }
+            
+            let middle_sorted = nums[i-1] < nums[i+1];
+            is_sorted = is_sorted && middle_sorted;
+            
+            answer = is_sorted;
+        }
+        
+        return answer;
+    }
 }
