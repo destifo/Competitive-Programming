@@ -2,7 +2,7 @@ impl Solution {
     
     // O(n) time,
     // O(1) space,
-    // Approach: array, 
+    // Approach: array, prefix sum, 
     pub fn can_be_increasing(nums: Vec<i32>) -> bool {
         let mut nums = nums;
         let mut removed = 0;
