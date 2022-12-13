@@ -37,4 +37,38 @@ impl Solution {
     pub fn max_profit(prices: Vec<i32>, fee: i32) -> i32 {
         Solution::make_transaction(0 as usize, true, &prices, fee, &mut HashMap::new())
     }
+
+
+    // O(n) time,
+    // O(n) space,
+    // Approach: dp, bottom up, 
+    pub fn max_profit2(prices: Vec<i32>, fee: i32) -> i32 {
+        let stocks = prices.len();
+        let mut dp = vec![vec![0;2];stocks+1];
+        
+        for i in (0..stocks).rev() {
+            
+            dp[i][0] = cmp::max(-prices[i] - fee + dp[i+1][1], dp[i+1][0]);
+            dp[i][1] = cmp::max(prices[i] + dp[i+1][0], dp[i+1][1]);
+        }
+        
+        return dp[0][0];
+    }
+
+
+    // O(n) time,
+    // O(1) space,
+    // Approach: dp, bottom up, the best solution
+    pub fn max_profit3(prices: Vec<i32>, fee: i32) -> i32 {
+        let stocks = prices.len();
+        let mut next_buy = 0;
+        let mut next_sell = 0;
+        
+        for i in (0..stocks).rev() {
+            next_buy = cmp::max(-prices[i]-fee+next_sell, next_buy);
+            next_sell = cmp::max(prices[i] + next_buy, next_sell);
+        }
+        
+        return next_buy;
+    }
 }
