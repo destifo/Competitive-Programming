@@ -2,6 +2,9 @@
 https://leetcode.com/problems/house-robber/
 '''
 
+from typing import List
+
+
 class Solution:
     # did it 5 mins
     def rob(self, nums):
