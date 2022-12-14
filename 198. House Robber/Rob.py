@@ -33,3 +33,20 @@ class Solution:
             
             
         return max(dp[0], dp[1])
+
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: dp, bottom up
+    def rob(self, nums: List[int]) -> int:
+        
+        houses = len(nums)
+        curr_max = nums[-1]
+        next_max = 0
+        
+        for i in range(houses-2, -1, -1):
+            temp = curr_max
+            curr_max = max(nums[i]+next_max, curr_max)
+            next_max = temp
+            
+        return curr_max
