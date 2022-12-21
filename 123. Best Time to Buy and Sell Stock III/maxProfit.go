@@ -1,3 +1,6 @@
+package maxProfit;
+
+
 import "math";
 
 
