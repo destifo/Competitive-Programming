@@ -1,3 +1,7 @@
+import heapq
+from typing import List
+
+
 class Solution:
     
     # O(n + stepslogn) time,
