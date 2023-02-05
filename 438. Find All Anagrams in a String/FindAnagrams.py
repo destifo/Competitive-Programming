@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, defaultdict
 from typing import List
 
 
@@ -35,6 +35,42 @@ class Solution:
             r +=1
         
         return result
+
+    
+    def isAnagram(self, p_count, count2) -> bool:
+        
+        for ch, val in p_count.items():
+            if count2[ch] != val:
+                return False
+            
+        return True
+    
+    # O(len(p) + len(s)) time,
+    # O(1) space,
+    # Approach: hashmap, sliding window
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        ans = []
+        
+        if len(p) > len(s): return ans
+        
+        p_count = Counter(p)
+        window = defaultdict(int)
+        left, right = 0, len(p)
+        
+        for i in range(right):
+            window[s[i]] += 1
+            
+        while right <= len(s):
+            
+            if self.isAnagram(p_count, window):
+                ans.append(right-len(p))
+            
+            window[s[left]] -= 1
+            if right < len(s):  window[s[right]] += 1
+            left += 1
+            right += 1
+        
+        return ans
 
 
 sol = Solution()
