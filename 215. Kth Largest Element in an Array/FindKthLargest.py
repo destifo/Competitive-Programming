@@ -4,6 +4,7 @@ https://leetcode.com/problems/kth-largest-element-in-an-array/
 
 
 import heapq
+from typing import List
 
 
 class Solution:
@@ -13,7 +14,6 @@ class Solution:
         return nums[-k]
 
     
-    # using heap sort
     def findKthLargest(self, nums: list[int], k: int) -> int:
         n = len(nums)
         max_heap = []
@@ -26,3 +26,18 @@ class Solution:
             result = -heapq.heappop(max_heap)
             
         return result
+
+
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        
+        pivot = nums[0]
+        left = [num for num in nums if num < pivot]
+        mid = [num for num in nums if num == pivot]
+        right = [num for num in nums if num > pivot]
+        
+        if len(right) >= k:
+            return self.findKthLargest(right, k)
+        elif len(right) + len(mid) >= k:
+            return mid[0]
+        else:
+            return self.findKthLargest(left, k-len(right)-len(mid))
