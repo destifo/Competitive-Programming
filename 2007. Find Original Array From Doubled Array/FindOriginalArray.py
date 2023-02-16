@@ -1,5 +1,5 @@
 from typing import List
-from prometheus_client import Counter
+from collections import Counter
 
 
 class Solution:
