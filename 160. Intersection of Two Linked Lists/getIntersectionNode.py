@@ -1,4 +1,5 @@
 # Definition for singly-linked list.
+from typing import Optional
 from numpy import double
 
 
@@ -93,3 +94,27 @@ class Solution:
             currB = currB.next if currB else headA
             
         return currA
+
+    
+    # O(m+n) time,
+    # O(1) space,
+    # Approach: linked list, array, 
+    def getIntersectionNode5(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        
+        a_len, b_len = self.getLen(headA), self.getLen(headB)
+        diff = abs(a_len-b_len)
+        
+        longer, shorter = (headA, headB) if a_len >= b_len else (headB, headA)
+        
+        curr_long = longer
+        curr_short = shorter
+        
+        while diff:
+            curr_long = curr_long.next
+            diff -= 1
+        
+        while curr_long != curr_short:
+            curr_long = curr_long.next
+            curr_short = curr_short.next
+        
+        return curr_long
