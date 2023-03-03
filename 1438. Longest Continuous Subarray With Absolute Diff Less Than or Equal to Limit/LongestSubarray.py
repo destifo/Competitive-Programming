@@ -96,6 +96,54 @@ class Solution:
         
         max_len = max_len = max(max_len, r-l)
         return max_len
+    
+
+    # O(len(nums)) time,
+    # O(len(nums)) space,
+    # Approach: monotonic queue,
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        inc_queue = collections.deque()
+        dec_queue = collections.deque()
+        window = collections.defaultdict(int)
+        
+        ans = 1
+        
+        left, right = 0, 0
+        
+        while right < len(nums):
+            num = nums[right]
+            
+            while inc_queue and inc_queue[-1] > num:
+                inc_queue.pop()
+                
+            while dec_queue and dec_queue[-1] < num:
+                dec_queue.pop()
+            
+            inc_queue.append(num)
+            dec_queue.append(num)
+            window[num] += 1
+            right += 1
+            
+            while dec_queue and inc_queue and dec_queue[0] - inc_queue[0] > limit:
+                first_num = nums[left]
+                left += 1
+                if first_num == dec_queue[0]:
+                    dec_queue.popleft()
+                elif first_num == inc_queue[0]:
+                    inc_queue.popleft()
+                else:
+                    window[first_num] -= 1
+            
+            while window[dec_queue[0]] == 0:
+                dec_queue.popleft()
+                
+            while window[inc_queue[0]] == 0:
+                inc_queue.popleft()
+            
+            ans = max(ans, right-left)
+            
+        
+        return ans
 
 
 sol = Solution()
