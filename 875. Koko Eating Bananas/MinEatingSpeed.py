@@ -3,6 +3,7 @@ https://leetcode.com/problems/koko-eating-bananas/
 '''
 
 
+import math
 from typing import List
 
 
@@ -42,3 +43,32 @@ class Solution:
         
             
         return ans
+    
+
+    def timeTaken(self, speed, piles):
+        
+        time = 0
+        
+        for banana_count in piles:
+            time += math.ceil(banana_count/speed)
+            
+        return time
+    
+    
+    # O(nlogn) time,
+    # O(1) space,
+    # Approach: binary search, 
+    def minEatingSpeed2(self, piles: List[int], h: int) -> int:
+        lo, hi = 1, max(piles)
+        min_speed = hi
+        
+        while lo <= hi:
+            mid = (lo+hi)//2
+            time_taken = self.timeTaken(mid, piles)
+            if time_taken <= h:
+                min_speed = mid
+                hi = mid - 1
+            else:
+                lo = mid + 1
+                
+        return min_speed
