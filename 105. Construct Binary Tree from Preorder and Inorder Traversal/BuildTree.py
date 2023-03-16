@@ -14,20 +14,22 @@ class Solution:
         if start > end:
             return None
 
-        val = preorder[0]
+        val = preorder[self.preorder_index]
         node = TreeNode(val)
         index = nodes_index[val]
-        node.left = self._buildTree(start, index-1, preorder[1:], nodes_index)
-        node.right = self._buildTree(index+1, end, preorder[1+(index-start):], nodes_index)
+        self.preorder_index += 1
+        node.left = self._buildTree(start, index-1, preorder, nodes_index)
+        node.right = self._buildTree(index+1, end, preorder, nodes_index)
         
         return node
     
     
-    # O(n*n) time,
-    # O(n*n) space,
+    # O(n) time,
+    # O(n) space,
     # Approach: divide and conquer, 
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         nodes_index = {}
+        self.preorder_index = 0
         for index, node in enumerate(inorder):
             nodes_index[node] = index
 
