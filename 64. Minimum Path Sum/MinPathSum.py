@@ -33,3 +33,34 @@ class Solution:
             return memo[key]
         
         return findMin(0, 0)
+    
+
+    def inBound(self, coord, grid):
+        row, col = coord
+        
+        return row < len(grid) and col < len(grid[0])
+    
+    
+    # O(m*n) time,
+    # O(m*n) space,
+    # Approach: bottom-up dp, tabulation, 
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        dp = [[-1 for _ in range(len(grid[0]))] for _ in range(len(grid))]
+        dp[-1][-1] = grid[-1][-1]
+        
+        for row in range(len(grid)-1, -1, -1):
+            for col in range(len(grid[0])-1, -1, -1):
+                if dp[row][col] != -1:
+                    continue
+                
+                right_val = float('inf')
+                if self.inBound((row, col+1), grid):
+                    right_val = dp[row][col+1]
+                    
+                bottom_val = float('inf')
+                if self.inBound((row+1, col), grid):
+                    bottom_val = dp[row+1][col]
+                    
+                dp[row][col] = grid[row][col] + min(right_val, bottom_val)
+                
+        return dp[0][0]
