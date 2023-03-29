@@ -23,3 +23,33 @@ class Solution:
     def maxSatisfaction(self, satisfaction: List[int]) -> int:
         satisfaction.sort()
         return self.findMaxCoefficient(0, 1, satisfaction, {})
+    
+
+    # O(n) time,
+    # O(1) space,
+    # Approach: greedy, 
+    def maxSatisfaction(self, satisfaction: List[int]) -> int:
+        satisfaction.sort()
+        tot = 0
+        positive_sum = 0
+        positive_prefix = 0
+        negative_sum = 0
+        negative_prefix = 0
+    
+        for i in range(len(satisfaction)-1, -1, -1):
+            curr_sat = satisfaction[i]
+            next_tot = positive_sum + negative_sum + curr_sat
+            if next_tot < tot:
+                return tot
+            
+            tot = next_tot
+            if curr_sat >= 0:
+                positive_sum += curr_sat
+                positive_prefix += curr_sat
+            else:
+                positive_sum += curr_sat
+                negative_prefix += curr_sat
+            positive_sum += positive_prefix
+            negative_sum += negative_prefix
+            
+        return tot
