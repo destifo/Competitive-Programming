@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     # very space efficent
     def numRescueBoats(self, people, limit: int):
@@ -55,6 +58,26 @@ class Solution:
             j -= 1
          
         return total_boats
+    
+
+    # O(nlogn) time,
+    # O(1) space,
+    # Approach: two pointers, greedy, sorting
+    def numRescueBoats(self, people: List[int], limit: int) -> int:
+        people.sort()
+        left, right = 0, len(people)-1
+        boats = 0
+        
+        while left <= right:
+            if people[left] + people[right] <= limit:
+                left += 1
+                right -= 1
+            else:
+                right -= 1
+                
+            boats += 1
+        
+        return boats
 
 sol = Solution()
 print(sol.numRescueBoats([3,5,3,4], 5))
