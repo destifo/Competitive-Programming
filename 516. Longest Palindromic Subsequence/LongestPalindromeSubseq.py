@@ -28,3 +28,42 @@ class Solution:
                 return memo[(start1, start2)]
             
         return findLongest(0, 0)
+    
+
+    def findLongest(self, i: int, j: int, s: str, memo: dict[int]) -> int:
+        
+        if i >= j:
+            return (j-i) + 1
+        
+        if (i, j) in memo:
+            return memo[(i, j)]
+        
+        if s[i] == s[j]:
+            memo[(i, j)] = 2 + self.findLongest(i+1, j-1, s, memo)
+        else:
+            memo[(i, j)] = max(self.findLongest(i+1, j, s, memo), self.findLongest(i, j-1, s, memo))
+        
+        return memo[(i, j)]
+        
+    # O(n^2) time,
+    # O(n^2) space,
+    # Approach: top down dp, memoization
+    def longestPalindromeSubseq2(self, s: str) -> int:
+        return self.findLongest(0, len(s)-1, s, {})
+    
+
+    # O(n^2) time,
+    # O(n^2) space,
+    # Approach: bottom-up dp, tabulation, 
+    def longestPalindromeSubseq3(self, s: str) -> int:
+        dp = [[0 for _ in range(len(s))] for _ in range(len(s))]
+        
+        for i in range(len(s)-1, -1, -1):
+            dp[i][i] = 1
+            for j in range(i+1, len(s)):
+                if s[i] == s[j]:
+                    dp[i][j] = 2 + dp[i+1][j-1]
+                else:
+                    dp[i][j] = max(dp[i+1][j], dp[i][j-1])
+                    
+        return dp[0][len(s)-1]
