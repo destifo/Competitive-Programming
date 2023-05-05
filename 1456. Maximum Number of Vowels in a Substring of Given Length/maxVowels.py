@@ -3,7 +3,8 @@ https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-l
 '''
 
 
-from collections import Counter
+from collections import Counter, defaultdict
+from typing import Dict
 
 
 class Solution:
@@ -38,3 +39,38 @@ class Solution:
             r +=1
             
         return max_count
+    
+
+    def countVowels(self, window: Dict[str, int]) -> int:
+        
+        count = 0
+        vowels = ['a', 'e', 'i', 'o', 'u']
+        
+        for vowel in vowels:
+            count += window[vowel]
+            
+        return count
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: sliding window, two pointers, hash table
+    def maxVowels2(self, s: str, k: int) -> int:
+        window = defaultdict(int)
+        left, right = 0, k
+        
+        for i in range(k):
+            window[s[i]] += 1
+            
+        ans = self.countVowels(window)
+        while right < len(s):
+            if ans == k: # pruning
+                break
+            
+            window[s[left]] -= 1
+            left += 1
+            window[s[right]] += 1
+            right += 1
+            ans = max(ans, self.countVowels(window))
+            
+        return ans
