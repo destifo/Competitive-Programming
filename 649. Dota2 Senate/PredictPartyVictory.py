@@ -42,4 +42,41 @@ class Solution:
             return 'Dire'
         else:
             return 'Radiant'
+        
+
+    # O(nlogn) time,
+    # O(nlogn) space,
+    # Approach: counting, greedy
+    def predictPartyVictory(self, senate: str) -> str:
+        skip_r, skip_d = 0, 0
+        r_count, d_count = 0, 0
+        next_state = []
+        
+        for senator in senate:
+            if senator == "R":
+                r_count += 1
+            else:
+                d_count += 1
+        
+        while d_count > 0 and r_count > 0:
+            for senator in senate:
+                if senator == "R":
+                    if skip_r > 0:
+                        skip_r -= 1
+                        r_count -= 1
+                    else:
+                        next_state.append("R")
+                        skip_d += 1
+                else:
+                    if skip_d > 0:
+                        skip_d -= 1
+                        d_count -= 1
+                    else:
+                        next_state.append("D")
+                        skip_r += 1
+                        
+            senate = next_state
+            next_state = []
+            
+        return "Radiant" if r_count > 0 else "Dire"
                 
