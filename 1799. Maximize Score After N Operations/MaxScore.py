@@ -1,4 +1,4 @@
-from typing import List
+from typing import Dict, List, Tuple
 
 
 class Solution:
