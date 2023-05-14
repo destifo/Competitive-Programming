@@ -26,3 +26,24 @@ class Solution:
     # Approach: top down dp, 
     def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
         return self.count(0, low, high, one, zero, {})
+
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: bottom-up dp, tabulation
+    def countGoodStrings2(self, low: int, high: int, zero: int, one: int) -> int:
+        MOD = 10**9 + 7
+        dp = [0 for _ in range(high+1)]
+        for i in range(low, high+1):
+            dp[i] = 1
+            
+        for i in range(high-1, -1, -1):
+            if i + zero <= high:
+                dp[i] += dp[i+zero]
+                
+            if i + one <= high:
+                dp[i] += dp[i+one]
+                
+            dp[i] %= MOD
+                
+        return dp[0]
