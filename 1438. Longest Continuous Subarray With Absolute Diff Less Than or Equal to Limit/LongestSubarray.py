@@ -104,7 +104,6 @@ class Solution:
     def longestSubarray(self, nums: List[int], limit: int) -> int:
         inc_queue = collections.deque()
         dec_queue = collections.deque()
-        window = collections.defaultdict(int)
         
         ans = 1
         
@@ -121,7 +120,6 @@ class Solution:
             
             inc_queue.append(num)
             dec_queue.append(num)
-            window[num] += 1
             right += 1
             
             while dec_queue and inc_queue and dec_queue[0] - inc_queue[0] > limit:
@@ -131,15 +129,7 @@ class Solution:
                     dec_queue.popleft()
                 elif first_num == inc_queue[0]:
                     inc_queue.popleft()
-                else:
-                    window[first_num] -= 1
-            
-            while window[dec_queue[0]] == 0:
-                dec_queue.popleft()
                 
-            while window[inc_queue[0]] == 0:
-                inc_queue.popleft()
-            
             ans = max(ans, right-left)
             
         
