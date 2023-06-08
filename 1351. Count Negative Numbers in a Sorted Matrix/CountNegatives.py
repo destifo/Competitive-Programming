@@ -33,3 +33,37 @@ class Solution:
             tot += (m-index)
             
         return tot
+    
+    
+    def binarySearch(self, hi: int, nums: List[int]) -> int:
+        
+        lo = 0
+        ans = len(nums)
+        if hi == ans:
+            hi -= 1
+        
+        while lo <= hi:
+            mid = (lo+hi)//2
+            if nums[mid] < 0:
+                ans = mid
+                hi = mid-1
+            else:
+                lo = mid+1
+                
+        return ans
+    
+    
+    # O(n+m) time,
+    # O(1) space,
+    # Approach: binary search, matrix
+    def countNegatives2(self, grid: List[List[int]]) -> int:
+        
+        count = 0
+        hi = len(grid[0])
+        
+        for row in grid:
+            index = self.binarySearch(hi, row)
+            count += len(row)-index
+            hi = index
+            
+        return count
