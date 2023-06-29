@@ -87,3 +87,50 @@ class Solution:
         moves = self.unlockAllDoors(start, tot_keys, grid)
 
         return moves if moves != float('inf') else -1
+    
+    
+    # O(m*n*k) time,
+	# O(m*n*k) space,
+	# Approach: bfs, 
+    def shortestPathAllKeys(self, grid: List[str]) -> int:
+        '''
+        state => (keys, coord)
+        do bfs, ignore visited states, 
+        queue element => (coord, keys)
+        '''
+        
+        k = 0
+        starting_point = (0, 0)
+        # count k and get starting point here
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == "@":
+                    starting_point = (row, col)
+                if grid[row][col].islower():
+                    k += 1
+        
+        queue = deque()
+        queue.append((starting_point, tuple()))
+        visited = set()
+        visited.add((starting_point, tuple()))
+        path_len = 0
+        while queue:
+            queue_len = len(queue)
+            for _ in range(queue_len):
+                coord, keys = queue.popleft()
+                row, col = coord
+                if grid[row][col].islower() and grid[row][col] not in keys:
+                    keys = keys + (grid[row][col], )
+                if (grid[row][col].isupper() and grid[row][col].lower() not in keys):
+                    continue 
+
+                keys = tuple(sorted(keys))
+                if len(keys) == k:
+                    return path_len
+                for nbr in self.getNeighbors(coord, grid):
+                    if (nbr, keys) not in visited:
+                        visited.add((nbr, keys))
+                        queue.append((nbr, keys))
+            path_len += 1
+                        
+        return -1
