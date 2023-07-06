@@ -1,5 +1,6 @@
 from operator import index
 from turtle import left
+from typing import List
 
 
 class Solution:
@@ -60,6 +61,25 @@ class Solution:
                     left_index += 1
 
         return min_len
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: sliding window, 
+    def minSubArrayLen2(self, target: int, nums: List[int]) -> int:
+        left, right = 0, 0
+        tot = 0
+        ans = float('inf')
+        
+        while right < len(nums):
+            tot += nums[right]
+            right += 1
+            while tot >= target:
+                ans = min(ans, right-left)
+                tot -= nums[left]
+                left += 1
+                
+        return ans if ans != float('inf') else 0
             
 
 
