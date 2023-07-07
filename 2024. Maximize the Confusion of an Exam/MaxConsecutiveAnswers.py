@@ -54,3 +54,34 @@ class Solution:
         longst_false = max(longst_false, r-l)
         
         return max(longst_true, longst_false)
+    
+
+    def findLongestConsecutive(self, answerKey: str, k: int, target: str) -> int:
+        
+        longest = 0
+        left, right = 0, 0
+        
+        while right < len(answerKey):
+            if answerKey[right] != target:
+                if k > 0:
+                    k -= 1
+                else:
+                    longest = max(longest, right-left)
+                    while left < right and k == 0 and answerKey[left] == target:
+                        left += 1  
+                    left += 1
+            right += 1
+        
+        longest = max(longest, right-left)
+        return longest
+                
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: sliding window, two pointers
+    def maxConsecutiveAnswers2(self, answerKey: str, k: int) -> int:
+        max_trues = self.findLongestConsecutive(answerKey, k, "T")
+        max_falses = self.findLongestConsecutive(answerKey, k, "F")
+        
+        return max(max_trues, max_falses)
