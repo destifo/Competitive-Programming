@@ -29,3 +29,13 @@ class Solution:
             turn += 1
                 
         return stack[-1]
+    
+    
+    # O(1) time,
+    # O(1) space,
+    # Approach: math, simulation, 
+    def clumsy(self, n: int) -> int:
+        ans = {1: 1, 2: 2, 3: 6, 4: 7}
+        additive = {0: 1, 1: 2, 2: 2, 3: -1}
+        
+        return ans[n] if n in ans else n + additive[n%4]
