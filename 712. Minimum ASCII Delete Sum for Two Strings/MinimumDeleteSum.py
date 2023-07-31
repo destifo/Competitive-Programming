@@ -39,3 +39,25 @@ class Solution:
             ascii_prefix_sum2.append(tot)
             
         return self.findMinDeletedVal(0, 0, s1, s2, ascii_prefix_sum1, ascii_prefix_sum2, {})
+    
+    
+    
+    # O(n^2) time,
+    # O(n^2) space,
+    # Approach: bottom up dp, string 
+    def minimumDeleteSum2(self, s1: str, s2: str) -> int:
+        dp = [[0 for _ in range(len(s2)+1)] for _ in range(len(s1)+1)]
+
+        for i in range(len(s1)-1, -1, -1):
+            dp[i][-1] = dp[i+1][-1] + ord(s1[i])
+            
+        for j in range(len(s2)-1, -1, -1):
+            dp[-1][j] = dp[-1][j+1] + ord(s2[j])
+
+        for i in range(len(s1)-1, -1, -1):
+            for j in range(len(s2)-1, -1, -1):
+                dp[i][j] = min(dp[i+1][j]+ord(s1[i]), dp[i][j+1]+ord(s2[j]))
+                if s1[i] == s2[j]:
+                    dp[i][j] = min(dp[i][j], dp[i+1][j+1])
+                    
+        return dp[0][0]
