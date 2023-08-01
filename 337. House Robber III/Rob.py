@@ -36,3 +36,22 @@ class Solution:
     # Approach: tree, dp, memoization
     def rob(self, root: Optional[TreeNode]) -> int:
         return self.findMaxLoot(root, {})
+    
+    
+    def findMaxLoot(self, root: Optional[TreeNode]) -> Tuple[int]:
+        if not root:
+            return 0, 0
+        
+        left = self.findMaxLoot(root.left)
+        right = self.findMaxLoot(root.right)
+        take = root.val + left[1] + right[1]
+        skip = max(left) + max(right)
+        
+        return take, skip
+    
+    
+    # O(n) time,
+    # O(h) space, h --> height of the tree
+    # Approach: tree, dfs, recursion
+    def rob2(self, root: Optional[TreeNode]) -> int:
+        return max(self.findMaxLoot(root))
