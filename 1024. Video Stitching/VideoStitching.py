@@ -29,3 +29,21 @@ class Solution:
             ans += 1
             
         return ans
+    
+    
+    # O(n^2) time,
+    # O(n) space,
+    # Approach: bottom up dp, sorting
+    def videoStitching2(self, clips: List[List[int]], time: int) -> int:
+        dp = [float('inf') for _ in range(time+1)]
+        dp[0] = 0
+        
+        clips.sort()
+        for clip in clips:
+            start, end = clip
+            for t in range(start, end+1):
+                if t > time:
+                    break
+                dp[t] = min(dp[t], dp[start]+1)
+                
+        return dp[time] if dp[time] != float('inf') else -1
