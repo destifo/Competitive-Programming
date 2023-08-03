@@ -2,6 +2,9 @@
 https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 '''
 
+from typing import Dict, List
+
+
 class Solution:
     def letterCombinations(self, digits):
         if not digits:
@@ -75,6 +78,28 @@ class Solution:
 
         return ans[0]
 
-
-sol = Solution()
-print(sol.letterCombinations2('235'))
+    
+    def findCombinations(self, index: int, digits: str, keys: Dict[str, str], curr: List[str], ans: List[str]) -> None:
+        
+        if index == len(digits):
+            ans.append("".join(curr))
+            return
+        
+        digit = digits[index]
+        for ch in keys[digit]:
+            curr.append(ch)
+            self.findCombinations(index+1, digits, keys, curr, ans)
+            curr.pop()
+    
+    # O(4^n) time, n --> len(digits)
+    # O(4^n) space,
+    # Approach: backtracking, recursion
+    def letterCombinations2(self, digits: str) -> List[str]:
+        keys = {
+            "2": "abc", "3": "def", "4": "ghi", "5": "jkl", 
+            "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"
+        }
+        
+        ans = []
+        if digits:  self.findCombinations(0, digits, keys, [], ans)
+        return ans
