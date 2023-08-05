@@ -50,3 +50,34 @@ class Solution:
             return trees
         
         return generateTree(nums) 
+    
+    
+    def generate(self, i: int, j: int, memo: Dict[Tuple[int], List[TreeNode]]) -> List[TreeNode]:
+        
+        if i > j:   return [None]
+        
+        if (i, j) in memo:
+            return memo[(i, j)]
+        
+        trees = []
+        for k in range(i, j+1):
+            left = self.generate(i, k-1, memo)
+            right = self.generate(k+1, j, memo)
+            
+            for l in left:
+                for r in right:
+                    node = TreeNode(k)
+                    node.left = l
+                    node.right = r
+                    trees.append(node)
+                    
+        memo[(i, j)] = trees
+        return trees
+    
+    
+    # O(n!) time,
+    # O(n!) space,
+    # Approach: dp, bst, 
+    def generateTrees2(self, n: int) -> List[Optional[TreeNode]]:
+        memo = {}
+        return self.generate(1, n, memo)
