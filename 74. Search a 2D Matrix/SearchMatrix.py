@@ -2,6 +2,9 @@
 https://leetcode.com/problems/search-a-2d-matrix/
 '''
 
+from typing import List
+
+
 class Solution:
     def searchMatrix(self, matrix, target: int):
         m = len(matrix)
@@ -49,3 +52,38 @@ class Solution:
                 return binarySearch(index, (final - initial)//2 + index, final)
                 
         return binarySearch(0, mid, n - 1)
+    
+    
+    # O(logm + logn) == O(log(m*n)) time
+    # O(1) space,
+    # Approach: binary search, matrix 
+    def searchMatrix2(self, matrix: List[List[int]], target: int) -> bool:
+        lo, hi = 0, len(matrix)-1
+        row_index = len(matrix)
+        
+        # binary search the row, 
+        while lo <= hi:
+            mid = (lo+hi)//2
+            if matrix[mid][0] > target:
+                hi = mid-1
+            elif matrix[mid][-1] < target:
+                lo = mid+1
+            else:
+                row_index = mid
+                break
+        
+        if row_index == len(matrix):
+            return False
+
+        # binary search the target from the row, 
+        lo, hi = 0, len(matrix[row_index])-1
+        while lo <= hi:
+            mid = (lo+hi)//2
+            if matrix[row_index][mid] == target:
+                return True
+            elif matrix[row_index][mid] > target:
+                hi = mid-1
+            else:
+                lo = mid+1
+                
+        return False
