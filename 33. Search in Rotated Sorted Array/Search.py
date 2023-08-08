@@ -114,6 +114,34 @@ class Solution:
             return n-1
         else:
             return binarySearch(minNumIndex, n-2)
+        
+    
+    # O(logn) time,
+    # O(1) space,
+    # Approach: binary search, one binary search solution
+    def search(self, nums: List[int], target: int) -> int:
+        lo, hi = 0, len(nums)-1
+        
+        while lo <= hi:
+            mid = (lo+hi)//2
+            if nums[mid] == target:
+                return mid
+            # for a target greater than the num at the mid index
+            elif nums[mid] < target:
+                # if the second half is the sorted part and the target is less than the num at the hi index or the first half is sorted, then we look into the second half
+                if (nums[mid] < nums[hi] and target <= nums[hi]) or nums[lo] < nums[mid]:
+                    lo = mid+1
+                else:
+                    hi = mid-1
+            # for a target less than the num at the mid value
+            else:
+                # if the first half is the sorted part and the target is greater greater than the value at lo index or the second is sorted, then we search in the first half of the array
+                if (nums[lo] <= nums[mid] and target >= nums[lo]) or nums[mid] < nums[hi]:
+                    hi = mid-1
+                else:
+                    lo = mid+1
+                    
+        return -1
 
 
 sol = Solution()
