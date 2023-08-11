@@ -2,6 +2,9 @@
 https://leetcode.com/problems/combination-sum/
 '''
 
+from typing import List
+
+
 class Solution:
     def combinationSum(self, candidates, target: int):
         # little bit slower Soln
@@ -41,7 +44,33 @@ class Solution:
 
         dfs(0, [], 0)
 
-        return ans    
+        return ans
+    
+    
+    def findCombs(self, index: int, rem: int, cands: List[int], comb: List[int], combs: List[List[int]]) -> None:
+        
+        if rem == 0:
+            combs.append(comb[::])
+            return
+        
+        if rem < 0 or index == len(cands):
+            return
+        
+        if cands[index] <= rem:
+            comb.append(cands[index])
+            self.findCombs(index, rem-cands[index], cands, comb, combs)
+            comb.pop()
+            
+        self.findCombs(index+1, rem, cands, comb, combs)
+    
+    
+    # O(2^target) time,
+    # O(n+target) space,
+    # Approach: backtracking, 
+    def combinationSum3(self, candidates: List[int], target: int) -> List[List[int]]:
+        combs = []
+        self.findCombs(0, target, candidates, [], combs)
+        return combs    
 
 
 sol = Solution()
