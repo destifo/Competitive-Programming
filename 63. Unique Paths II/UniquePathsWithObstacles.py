@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid):
         memo = {}
@@ -24,3 +27,25 @@ class Solution:
             return memo[(a+1, b)] + memo[(a, b+1)]
         
         return calc_unique(0, 0)
+    
+    
+    # O(n*m) time,
+    # O(n*m) space,
+    # Approach: bottom up dp, 
+    def uniquePathsWithObstacles2(self, obstacleGrid: List[List[int]]) -> int:
+        n, m = len(obstacleGrid), len(obstacleGrid[0])
+        dp = [[0 for _ in range(m)] for _ in range(n)]
+        dp[-1][-1] = 1
+        if obstacleGrid[-1][-1] == 1:
+            return 0
+        
+        for row in range(n-1, -1, -1):
+            for col in range(m-1, -1, -1):
+                if obstacleGrid[row][col] == 1:
+                    continue
+                if row+1 < n:
+                    dp[row][col] += dp[row+1][col]
+                if col+1 < m:
+                    dp[row][col] += dp[row][col+1]
+                    
+        return dp[0][0]
