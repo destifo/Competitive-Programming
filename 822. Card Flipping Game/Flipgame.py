@@ -28,3 +28,23 @@ class Solution:
                 return num
             
         return 0
+    
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: array, hashmap, 
+    def flipgame(self, fronts: List[int], backs: List[int]) -> int:
+        n = len(fronts)
+        unusable = set()
+        for i in range(n):
+            if fronts[i] == backs[i]:
+                unusable.add(fronts[i])
+        
+        ans = float('inf')
+        for i in range(n):
+            if fronts[i] not in unusable:
+                ans = min(ans, fronts[i])
+            if backs[i] not in unusable:
+                ans = min(ans, backs[i])
+                
+        return ans if ans != float('inf') else 0
