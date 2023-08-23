@@ -1,4 +1,4 @@
-from collections import deque
+from collections import Counter, deque
 import heapq
 
 
@@ -25,6 +25,34 @@ class Solution:
         
         if waiting_queue:   return ""
         return ans
+    
+    
+    # O(nlogn) time,
+    # O(n) space,
+    # Approach: heap, queue, string, 
+    def reorganizeString2(self, s: str) -> str:
+        count = Counter(s)
+        heap = []
+        
+        for ch, cnt in count.items():
+            heapq.heappush(heap, (-cnt, ch))
+            
+        str_builder = []
+        waiting_char = None
+        waiting_count = 0
+        while heap:
+            cnt, ch = heapq.heappop(heap)
+            cnt = -cnt
+            
+            if waiting_char and waiting_count:
+                heapq.heappush(heap, (-waiting_count, waiting_char))
+            cnt -= 1
+            str_builder.append(ch)
+            
+            waiting_char = ch
+            waiting_count = cnt
+            
+        return "".join(str_builder) if waiting_count == 0 else ""
 
 
 sol = Solution()
