@@ -31,7 +31,7 @@ class Solution:
     
     # O(n*m) time,
     # O(n*m) space,
-    # Approach: string, backtracking, 
+    # Approach: string, dp, 
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
         n, m = len(s1), len(s2)
         if len(s3) != n + m:
