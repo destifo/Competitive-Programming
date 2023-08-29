@@ -29,3 +29,22 @@ class Solution:
             early_hour = len(customers)
             
         return early_hour
+    
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: prefix sum, array, one pass
+    def bestClosingTime2(self, customers: str) -> int:
+        min_pen = 0
+        curr_pen = 0
+        ans = 0
+        for i, status in enumerate(customers):
+            if status == "Y":
+                curr_pen -= 1
+            else:
+                curr_pen += 1
+            if curr_pen < min_pen:
+                ans = i+1
+                min_pen = curr_pen
+            
+        return ans
