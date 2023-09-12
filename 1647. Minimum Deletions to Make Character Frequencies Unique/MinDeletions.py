@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, defaultdict
 
 
 class Solution:
@@ -34,3 +34,25 @@ class Solution:
                 char_freq.pop()
                 
         return min_moves
+    
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: hash map, 
+    def minDeletions2(self, s: str) -> int:
+        count = Counter(s)
+        freq = defaultdict(bool)
+        deletions = 0
+        
+        for cnt in count.values():
+            if freq[cnt]:
+                cnt -= 1
+                deletions += 1
+                while cnt > 0 and freq[cnt]:
+                    cnt -= 1
+                    deletions += 1
+                freq[cnt] = True
+            else:
+                freq[cnt] = True
+                
+        return deletions
