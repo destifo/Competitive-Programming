@@ -3,6 +3,9 @@ https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/
 '''
 
 
+from typing import List
+
+
 class Solution:
 
     # an O(2^n) recursive solution 
@@ -84,6 +87,33 @@ class Solution:
             max_len = max(max_len, r - l)
 
         return n - max_len if max_len else -1
+    
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: two sum hash map, 
+    def minOperations4(self, nums: List[int], x: int) -> int:
+        n = len(nums)
+        cache = {0: 0}
+        
+        tot = 0
+        for i in range(n-1, -1, -1): 
+            tot += nums[i]
+            if tot > x:
+                break
+            cache[tot] = n-i
+            
+        ans = cache[x] if x in cache else float('inf')
+        tot = 0
+        for i, num in enumerate(nums):
+            tot += num
+            if tot > x:
+                break
+            if x-tot in cache and n-cache[x-tot] > i:
+                length = i + cache[x-tot] + 1
+                ans = min(ans, length)
+                
+        return ans if ans != float('inf') else -1
             
 
 sol = Solution()
