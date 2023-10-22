@@ -28,7 +28,7 @@ class Solution:
     # O(n) time,
     # O(1) space,
     # Approach: prefix sum, 
-    def maxSubArray(self, nums: List[int]) -> int:
+    def maxSubArray2(self, nums: List[int]) -> int:
         ans = float('-inf')
         prev_smallest = 0
         tot = 0
@@ -40,3 +40,18 @@ class Solution:
             prev_smallest = min(prev_smallest, tot)
             
         return ans
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: kadane's algorithm, 
+    def maxSubArray3(self, nums: List[int]) -> int:
+        max_sum = nums[0]
+        curr_sum = max_sum
+        
+        for i in range(1, len(nums)):
+            num = nums[i]
+            curr_sum = max(num, curr_sum+num)
+            max_sum = max(max_sum, curr_sum)
+            
+        return max_sum
