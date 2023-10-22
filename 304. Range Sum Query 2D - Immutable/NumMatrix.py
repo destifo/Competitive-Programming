@@ -70,3 +70,25 @@ class NumMatrix2:
 
 sol = NumMatrix([[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]])
 print()
+
+
+class NumMatrix2:
+
+    def __init__(self, matrix: List[List[int]]):
+        ROWS, COLS = len(matrix), len(matrix[0])
+        self.pf_sum = [[0 for _ in range(COLS)] for _ in range(ROWS)]
+        pf_sum = self.pf_sum
+        
+        for row in range(ROWS):
+            for col in range(COLS):
+                pf_sum[row][col] += matrix[row][col]
+                if row > 0:
+                    pf_sum[row][col] += pf_sum[row-1][col]
+                if col > 0:
+                    pf_sum[row][col] += pf_sum[row][col-1]
+                if row > 0 and col > 0:
+                    pf_sum[row][col] -= pf_sum[row-1][col-1]
+                    
+
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        return self.pf_sum[row2][col2] + (self.pf_sum[row1-1][col1-1] if row1 > 0 and col1 > 0 else 0) - (self.pf_sum[row1-1][col2] if row1 > 0 else 0) - (self.pf_sum[row2][col1-1] if col1 > 0 else 0)
