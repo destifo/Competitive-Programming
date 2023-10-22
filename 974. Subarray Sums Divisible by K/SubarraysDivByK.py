@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import List
 
 
@@ -32,3 +33,21 @@ class Solution:
             
         # return answer
         return answer
+    
+    
+    # O(n) time,
+    # O(k) space,
+    # Approach: hashmap, prefix sum
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        prev_mods = defaultdict(int)
+        prev_mods[0] = 1
+        tot = 0
+        ans = 0
+
+        for num in nums:
+            tot += num
+            mod = tot%k
+            ans += prev_mods[mod]
+            prev_mods[mod] += 1
+            
+        return ans
