@@ -31,3 +31,33 @@ class Solution:
                 right += 1
                 
         return ans
+    
+    
+    def isValidForm(self, window: Dict[str, int], k: int) -> bool:
+        sortd = sorted(window.values())
+        sortd.pop()
+        
+        return sum(sortd) <= k
+    
+     
+    # O(n) time,
+    # O(1) space,
+    # Approach: sliding window, sorting, counting
+    def characterReplacement2(self, s: str, k: int) -> int:
+        left, right = 0, 0
+        window = {}
+        ans = 0
+        
+        while right < len(s):
+            window[s[right]] = window.get(s[right], 0) + 1
+            
+            while not self.isValidForm(window, k):
+                window[s[left]] -= 1
+                if window[s[left]] == 0:
+                    window.pop(s[left])
+                left += 1
+                
+            ans = max(ans, right-left+1)
+            right += 1
+            
+        return ans
