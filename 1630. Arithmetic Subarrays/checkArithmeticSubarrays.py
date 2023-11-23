@@ -2,6 +2,9 @@
 https://leetcode.com/problems/arithmetic-subarrays/submissions/
 '''
 
+from typing import List
+
+
 class Solution:
     def checkArithmeticSubarrays(self, nums, l, r):#worked the first time, :)
         answer = []
@@ -22,6 +25,28 @@ class Solution:
             answer.append(isArithmetic)
         
         return answer
+    
+    
+    # O(m*nlogn) time,
+    # O(m*n) space,
+    # Approach: sorting, 
+    def checkArithmeticSubarrays(self, nums: List[int], l: List[int], r: List[int]) -> List[bool]:
+        ans = []
+        
+        for i in range(len(r)):
+            left, right = l[i], r[i]
+            
+            is_arthimetic = True
+            s_nums = sorted(nums[left:right+1])
+            diff = 0 if len(s_nums) <= 1 else s_nums[1]-s_nums[0]
+            for j in range(1, len(s_nums)):
+                if (s_nums[j]-s_nums[j-1]) != diff:
+                    is_arthimetic = False
+                    break
+            
+            ans.append(is_arthimetic)
+            
+        return ans
 
     
 
