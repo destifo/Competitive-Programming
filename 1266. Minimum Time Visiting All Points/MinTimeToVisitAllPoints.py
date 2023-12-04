@@ -33,3 +33,18 @@ class Solution:
             seconds += self.findShortestPath(tuple(points[i]), tuple(points[i+1]))
             
         return seconds
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: math, 
+    def minTimeToVisitAllPoints2(self, points: List[List[int]]) -> int:    
+        '''
+            Chebyshev distance
+        '''
+        seconds = 0
+        for i in range(len(points)-1):
+            x_diff, y_diff = abs(points[i+1][0]-points[i][0]), abs(points[i+1][1]-points[i][1])
+            seconds += max(x_diff, y_diff)
+            
+        return seconds
