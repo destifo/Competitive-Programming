@@ -3,6 +3,9 @@ https://leetcode.com/problems/majority-element/
 '''
 
 
+from typing import List
+
+
 class Solution:
     # O(n) time complexity, but one interesting fact is that the algorithm will 
     # finish before the whole array is traveresed if the majority element does hit
@@ -18,3 +21,23 @@ class Solution:
                 return num
         
         return -1
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: counting, 
+    def majorityElement2(self, nums: List[int]) -> int:
+        ans = nums[0]
+        count = 0
+        
+        for num in nums:
+            if num == ans:
+                count += 1
+            else:
+                count -= 1
+            
+            if count == 0:
+                ans = num
+                count = 1
+                
+        return ans
