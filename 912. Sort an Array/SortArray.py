@@ -1,3 +1,6 @@
+from typing import List
+
+
 class Solution:
     # wasn't accepted, 
     # O(nlogn) time,
@@ -82,6 +85,47 @@ class Solution:
             j +=1
 
         return merged
+    
+    
+    def mergeSort(self, nums: List[int]) -> List[int]:
+        if len(nums) == 1:
+            return nums
+        
+        mid = len(nums)//2
+        left = self.mergeSort(nums[:mid])
+        right = self.mergeSort(nums[mid:])
+        
+        merged = self.merge(left, right)
+        return merged
+
+    def merge3(self, left: List[int], right: List[int]) -> List[int]:
+        l, r = 0, 0
+        final = []
+        
+        while l < len(left) and r < len(right):
+            if left[l] < right[r]:
+                final.append(left[l])
+                l += 1
+            else:
+                final.append(right[r])
+                r += 1
+                
+        while l < len(left):
+            final.append(left[l])
+            l += 1
+            
+        while r < len(right):
+            final.append(right[r])
+            r += 1
+                
+        return final
+    
+    
+    # O(nlogn) time,
+    # O(nlogn) space,
+    # Approach: merge sort, 
+    def sortArray3(self, nums: List[int]) -> List[int]:
+        return self.mergeSort(nums)
 
 
 sol = Solution()
