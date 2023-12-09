@@ -28,3 +28,16 @@ class Solution:
             
         inOrderTraverse(root)
         return ans
+    
+    
+    # O(n) time,
+    # O(n^2) space,
+    # Approach: recursion, 
+    def inorderTraversal2(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        
+        left = self.inorderTraversal(root.left)
+        right = self.inorderTraversal(root.right)
+        
+        return left + [root.val] + right
