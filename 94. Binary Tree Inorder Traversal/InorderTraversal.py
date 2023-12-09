@@ -41,3 +41,38 @@ class Solution:
         right = self.inorderTraversal(root.right)
         
         return left + [root.val] + right
+    
+    
+    def findPredecessor(self, node: Optional[TreeNode]) -> Optional[TreeNode]:
+        
+        if not node.right:
+            return node
+        
+        return self.findPredecessor(node.right)
+    
+    
+    def inorder(self, root: Optional[TreeNode], ans: List[int]) -> None:
+        if not root:
+            return
+        
+        if not root.left:
+            ans.append(root.val)
+            return self.inorder(root.right, ans)
+        
+        pred = self.findPredecessor(root.left)
+        lefty = root.left
+        root.left = None
+        pred.right = root
+        self.inorder(lefty, ans)
+        
+        
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: recursion, Morris traversal
+    def inorderTraversal3(self, root: Optional[TreeNode]) -> List[int]:
+        ans = []
+        self.inorder(root, ans)
+        
+        return ans
