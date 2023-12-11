@@ -57,3 +57,34 @@ class Solution:
                     ans = max(ans, prod)
                     
         return ans
+    
+    
+    # O(2^n) time,
+    # O(2^n) space,
+    # Approach: bit masking,
+    def maxProduct(self, s: str) -> int:
+        n = len(s)
+        palis = []
+        
+        # go over all the masks for all the subsequences
+        for mask in range(1, 1 << n):
+            chars = []
+            
+            # take the chars in the mask/subsequence
+            for i in range(n):
+                if mask & (1 << i) != 0:
+                    chars.append(s[i])
+            
+            if self.isPali(chars):
+                palis.append((mask, len(chars)))
+                
+        ans = 0
+        for i in range(len(palis)):
+            mask1, length1 = palis[i]
+            for j in range(i+1, len(palis)):
+                mask2, length2 = palis[j]
+                prod = length1 * length2
+                if mask1 & mask2 == 0 and prod > ans:
+                    ans = prod
+                    
+        return ans
