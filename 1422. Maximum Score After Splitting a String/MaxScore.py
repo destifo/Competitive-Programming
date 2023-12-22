@@ -25,3 +25,27 @@ class Solution:
                 break
             
         return ans
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: math
+    def maxScore2(self, s: str) -> int:
+        ones = 0
+        zeros = 0
+        
+        ans = float('-inf')
+        for i in range(len(s)-1):
+            ch = s[i]
+            if ch == "0":
+                zeros += 1
+            else:
+                ones += 1
+            
+            score = zeros-ones
+            ans = max(ans, score)
+            
+        if s[-1] == '1':
+            ones += 1
+            
+        return ans + ones 
