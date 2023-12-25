@@ -74,6 +74,44 @@ class Solution:
             table[i] = one_jump + two_jump
             
         return table[0]
+    
+    
+    def valid(self, word: str) -> bool:
+        return word[0] != "0" and int(word) <= 26
+    
+    
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: dp, 
+    def numDecodings(self, s: str) -> int:
+        '''
+        
+            partitioning
+            check if partition is valid
+            add to the current ways to partition
+        
+        '''
+        n = len(s)
+        dp = [0 for _ in range(n+1)]
+        dp[-1] = 1
+        
+        for i in range(n-1, -1, -1):
+            
+            # take one
+            start, end = i, i+1
+            word = s[start:end]
+            if self.valid(word):
+                dp[i] += dp[end]
+                
+            # take two
+            start, end = i, i+2
+            if end <= n:
+                word = s[start:end]
+                if self.valid(word):
+                    dp[i] += dp[end]
+                    
+        return dp[0]
 
 
 sol = Solution()
