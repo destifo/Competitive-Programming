@@ -50,3 +50,30 @@ class Solution:
             i +=1
         
         return min_cost
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: sliding window, two pointers, greedy
+    def minCost(self, colors: str, neededTime: List[int]) -> int:
+        n = len(colors)
+        ans = 0
+        
+        left, right = 0, 0
+        maxx, tot = 0, 0
+        while right < n:
+            if colors[left] != colors[right]:
+                if right-left > 1:
+                    ans += tot-maxx
+                left = right
+                tot = 0
+                maxx = 0
+                
+            maxx = max(maxx, neededTime[right])
+            tot += neededTime[right]
+            right += 1
+            
+        if right-left > 1:
+            ans += tot-maxx
+                
+        return ans
