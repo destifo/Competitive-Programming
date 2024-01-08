@@ -85,3 +85,20 @@ class Solution:
                 stack.append(node.left)
                 
         return tot
+    
+    
+    # O(n) time,
+    # O(h) space, h -> height of the tree
+    # Approach: bst, recursion
+    def rangeSumBST4(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        if not root:
+            return 0
+        
+        tot = root.val if low <= root.val <= high else 0
+        if root.val >= low:
+            tot += self.rangeSumBST(root.left, low, high)
+        
+        if root.val <= high:
+            tot += self.rangeSumBST(root.right, low, high)
+            
+        return tot
