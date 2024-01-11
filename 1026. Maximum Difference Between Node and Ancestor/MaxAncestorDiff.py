@@ -60,6 +60,27 @@ class Solution:
                     queue.append((node.right, min(node.val, min_val), max(node.val, max_val)))
                     
         return answer
+    
+    
+    # O(n) time, n -> no of nodes
+    # O(n) space,
+    # Approach: dfs, stack
+    def maxAncestorDiff2(self, root: Optional[TreeNode]) -> int:
+        ans = 0
+        
+        stack = []
+        stack.append((root, root.val, root.val))
+        
+        while stack:
+            node, lo, hi = stack.pop()
+            ans = max(ans, abs(node.val-lo), abs(node.val-hi))
+            if node.left:
+                stack.append((node.left, min(node.val, lo), max(node.val, hi)))
+                
+            if node.right:
+                stack.append((node.right, min(node.val, lo), max(node.val, hi)))
+                
+        return ans
 
 sol = Solution()
 tree = TreeNode(1)
