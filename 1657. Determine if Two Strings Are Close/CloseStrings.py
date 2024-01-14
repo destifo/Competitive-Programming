@@ -1,3 +1,6 @@
+from collections import Counter, defaultdict
+
+
 class Solution:
     
     def check(self, word_count1, word_count2) -> bool:
@@ -28,3 +31,10 @@ class Solution:
         word2_count = Counter(word2)
         
         return self.check(word1_count, word2_count) and set(word1) == set(word2)
+    
+    
+    # O(n + m) time,
+    # O(1) space,
+    # Approach: counting, hash map
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        return set(word1) == set(word2) and Counter(Counter(word1).values()) == Counter(Counter(word2).values())
