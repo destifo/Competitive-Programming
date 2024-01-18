@@ -52,3 +52,16 @@ class Solution:
             a_2 = curr
             
         return curr
+    
+    
+    # O(n) time,
+    # O(1) space,
+    # Approach: bottom up dp, fibonnaci series like question
+    def climbStairs4(self, n: int) -> int:
+        curr, prev = 1, 1
+        
+        for i in range(n-1):
+            nxt = curr + prev
+            prev, curr = curr, nxt
+            
+        return curr
