@@ -96,3 +96,24 @@ class Solution:
         duplicate, missing = self.findDuplicateAndMissing(nums, xor1, xor2)
         
         return [duplicate, missing]
+    
+    
+    # O(nlogn) time,
+    # O(1) space,
+    # Approach: sorting, array
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        
+        dup, miss = 0, len(nums)
+        
+        prev = 0
+        for num in nums:
+            diff = num-prev
+            if diff == 0:
+                dup = num
+            elif diff > 1:
+                miss = num-1
+            
+            prev = num
+            
+        return [dup, miss]
