@@ -4,7 +4,7 @@ use std::cmp::Reverse;
 
 impl Solution {
     
-    // O(nlogn + m) time, m -> len(meetings)
+    // O(mlogn + m) time, m -> len(meetings)
     // O(n) space,
     // Approach: heap, greedy, 
     pub fn most_booked(n: i32, mut meetings: Vec<Vec<i32>>) -> i32 {
