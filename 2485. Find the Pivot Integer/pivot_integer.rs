@@ -2,7 +2,7 @@ impl Solution {
     
     // O(n) time, one pass
     // O(1) space,
-    // Approach: prefix sum, 
+    // Approach: prefix sum, math
     pub fn pivot_integer(n: i32) -> i32 {
         let summation = (n*(n+1))/2;
         
