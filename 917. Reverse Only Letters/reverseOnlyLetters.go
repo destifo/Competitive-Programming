@@ -1,4 +1,4 @@
-package RevereseLetters
+package RevereseOnlyLetters
 
 import "unicode"
 
