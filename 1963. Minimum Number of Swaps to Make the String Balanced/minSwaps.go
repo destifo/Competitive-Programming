@@ -34,3 +34,28 @@ func minSwaps(s string) int {
 
 	return swaps
 }
+
+
+// O(n) time,
+// O(n) space,
+// Approach: stack,
+func minSwaps2(s string) int {
+    
+    stack := []string{}
+    unbalanced := 0
+    
+    for i := 0; i < len(s); i++ {
+        char := string(s[i])
+        if char == "[" {
+            stack = append(stack, char)
+        } else {
+            if len(stack) > 0 {
+                stack = stack[:len(stack)-1]
+            } else {
+                unbalanced += 1
+            }
+        }
+    }
+    
+    return (unbalanced + 1)/2
+}
