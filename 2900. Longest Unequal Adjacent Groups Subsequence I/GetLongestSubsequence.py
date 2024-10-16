@@ -30,3 +30,18 @@ class Solution:
                 return seq
             
         return []
+    
+    
+    # O(n) time,
+    # O(n) space,
+    # Approach: greedy, 
+    def getLongestSubsequence2(self, words: List[str], groups: List[int]) -> List[str]:
+        ans = []
+        
+        last_group = 0
+        for i in range(len(words)):
+            if len(ans) == 0 or last_group != groups[i]:
+                ans.append(words[i])
+                last_group = groups[i]
+        
+        return ans
