@@ -87,3 +87,22 @@ class Solution:
                 lo = mid+1
                 
         return False
+    
+    
+    # O(n + m) time,
+    # O(1) space,
+    # Approach: binary search, 
+    def searchMatrix3(self, matrix: List[List[int]], target: int) -> bool:
+        n, m = len(matrix), len(matrix[0])
+        row, col = 0, m-1
+        
+        while row < n and col >= 0:
+            curr = matrix[row][col]
+            if curr == target:
+                return True
+            elif curr > target:
+                col -= 1
+            else:
+                row += 1
+                
+        return False
